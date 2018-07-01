@@ -5,6 +5,7 @@ check:
 	-cat /sys/power/mem_sleep | grep deep
 
 suspend:
+	echo "deep" | sudo tee /sys/power/mem_sleep
 	sudo systemctl suspend -i
 
 doit: /boot/acpi_override
