@@ -4,8 +4,10 @@ check:
 	-dmesg | grep ACPI | grep supports | grep S3
 	-cat /sys/power/mem_sleep | grep deep
 
-suspend:
+deep:
 	echo "deep" | sudo tee /sys/power/mem_sleep
+
+suspend:
 	sudo systemctl suspend -i
 
 doit: /boot/acpi_override
@@ -22,7 +24,7 @@ dsdt.dsl: dsdt.aml
 	iasl -d dsdt.aml
 
 dsdt.fixed.dsl: dsdt.dsl
-	patch --verbose -o $@ < X1C6_S3_DSDT.rcy.patch
+	patch --verbose -o $@ < X1C6_S3_DSDT.patch
 
 %.aml: %.dsl
 	iasl -ve -tc $<
